@@ -18,16 +18,16 @@ class ArtistSerializerMobile(serializers.ModelSerializer):
 
 
 class AlbumSerializer(serializers.ModelSerializer):
-    artist=ArtistSerializerMobile()
+    #artist=ArtistSerializerMobile()
     class Meta:
         model = Album
-        fields = '__all__'
+        fields = ('id','title','artist')
 
 
 
 
 class SongSerializer(serializers.ModelSerializer):
-    album=AlbumSerializer()
+    #album=AlbumSerializer()
     class Meta:
         model = Song
         fields = ('id','title','album')
