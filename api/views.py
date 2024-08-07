@@ -6,9 +6,14 @@ from .models import Album,Artist,Song
 from . serializers import ArtistSerializer,ArtistSerializerMobile,AlbumSerializer,SongSerializer
 
 class ArtistAPIView(APIView):
+    def get_queryset(self):
+        return Artist.objects.all()
     def get(self, request):
-        queryset = Artist.objects.all()
-        serializer = ArtistSerializer(queryset, many=True)
+        query=self.get_queryset()
+        search_data=request.query_params.get("search")
+        if search_data is  not None:
+            query=query.filter(username__icontains=search_data) | query.filter(first_name__icontains=search_data)| query.filter(last_name__icontains=search_data)
+        serializer = ArtistSerializer(query, many=True)
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request):
@@ -86,9 +91,14 @@ class ArtistAPIMobileView(APIView):
 
 
 class AlbumAPIView(APIView):
+    def get_queryset(self):
+        return Album.objects.all()
     def get(self, request):
-        albums = Album.objects.all()
-        album_serializer = AlbumSerializer(albums, many=True)
+        query=self.get_queryset()
+        search_data=request.query_params.get("search")
+        if search_data is not None:
+            query=query.filter(title__icontains=search_data)
+        album_serializer = AlbumSerializer(query, many=True)
         return Response(data=album_serializer.data)
 
     def post(self, request):
@@ -137,10 +147,16 @@ class AlbumDetailAPIView(APIView):
 
 
 class SongAPIView(APIView):
+    def get_queryset(self):
+        return Song.objects.all()
     def get(self, request):
-        songs = Song.objects.all()
-        song_serializer = SongSerializer(songs, many=True)
-        return Response(data=song_serializer.data)
+        query=self.get_queryset()
+        search_data=request.query_params.get("search")
+        if search_data is not None:
+            query=query.filter(title__icontains=search_data) | query.filter(album__artist__first_name__icontains=search_data) | query.filter(album__artist__last_name__icontains=search_data)
+
+        serializer = SongSerializer(query, many=True)
+        return Response(data=serializer.data)
 
     def post(self, request):
         serializer = SongSerializer(data=request.data)
