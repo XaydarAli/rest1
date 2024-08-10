@@ -91,15 +91,17 @@ from .serializers import ArtisttelebotSerializer,AlbumtelebotSerializer,Songtele
 #         serializer = ArtistSerializerMobile(queryset, many=True)
 #         return Response(data=serializer.data)
 class ArtistAPIViewSET(ModelViewSet):
-    queryset = Artist.objects.all()
+
     serializer_class = ArtistSerializer
-    permission_classes = (IsAuthenticated,)
+    def get_queryset(self):
+        return Artist.objects.all()
+    #permission_classes = (IsAuthenticated,)
 #
 
 class AlbumAPIViewSET(ModelViewSet):
     queryset = Album.objects.all()
     serializer_class = AlbumSerializer
-    permission_classes = (IsAuthenticated,)
+    #permission_classes = (IsAuthenticated,)
 #
 # class AlbumAPIView(APIView):
 #     def get_queryset(self):
@@ -161,7 +163,7 @@ class AlbumAPIViewSET(ModelViewSet):
 class SongAPIViewSET(ModelViewSet):
     queryset = Song.objects.all()
     serializer_class = SongSerializer
-    permission_classes = (IsAuthenticated,)
+    #permission_classes = (IsAuthenticated,)
 #
 # class SongAPIView(APIView):
 #     def get_queryset(self):
@@ -235,18 +237,18 @@ class SongAPIViewSET(ModelViewSet):
 class ArtistMobileAPIViewSET(ModelViewSet):
     queryset = Artist.objects.all()
     serializer_class = ArtistMobileSerializer
-    permission_classes = (IsAuthenticated,)
+    #permission_classes = (IsAuthenticated,)
 
 class AlbumMobileAPIViewSET(ModelViewSet):
     queryset = Album.objects.all()
     serializer_class = AlbumMobileSerializer
-    permission_classes = (IsAuthenticated,)
+    #permission_classes = (IsAuthenticated,)
 
 
 class SongMobileAPIViewSET(ModelViewSet):
     queryset = Song.objects.all()
     serializer_class = SongMobileSerializer
-    permission_classes = (IsAuthenticated,)
+    #permission_classes = (IsAuthenticated,)
 
 
 

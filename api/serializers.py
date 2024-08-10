@@ -55,7 +55,7 @@ class AlbumMobileSerializer(serializers.ModelSerializer):
 class SongMobileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Song
-        fields = ('title',)
+        fields = ('title','album')
 
 
 
@@ -71,7 +71,7 @@ class SongMobileSerializer(serializers.ModelSerializer):
 class ArtisttelebotSerializer(serializers.ModelSerializer):
     class Meta:
         model = Artist
-        fields = ('id','first_name','last_name')
+        fields = ('username','first_name','last_name')
 
 
 
@@ -80,10 +80,12 @@ class AlbumtelebotSerializer(serializers.ModelSerializer):
     artist=ArtistMobileSerializer()
     class Meta:
         model = Album
-        fields = ('id','title','artist')
+        fields = ('title','artist')
 
 
 class SongtelebotSerializer(serializers.ModelSerializer):
+    album = AlbumtelebotSerializer()
+
     class Meta:
         model = Song
-        fields = ('title','id')
+        fields = ('title','album')
