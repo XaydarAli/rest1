@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from rest_framework import status
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated,IsAdminUser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
@@ -95,13 +96,15 @@ class ArtistAPIViewSET(ModelViewSet):
     serializer_class = ArtistSerializer
     def get_queryset(self):
         return Artist.objects.all()
-    #permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated,)
+    authentication_classes = (TokenAuthentication,)
 #
 
 class AlbumAPIViewSET(ModelViewSet):
     queryset = Album.objects.all()
     serializer_class = AlbumSerializer
-    #permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated,)
+    authentication_classes = (TokenAuthentication,)
 #
 # class AlbumAPIView(APIView):
 #     def get_queryset(self):
@@ -163,7 +166,8 @@ class AlbumAPIViewSET(ModelViewSet):
 class SongAPIViewSET(ModelViewSet):
     queryset = Song.objects.all()
     serializer_class = SongSerializer
-    #permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated,)
+    authentication_classes = (TokenAuthentication,)
 #
 # class SongAPIView(APIView):
 #     def get_queryset(self):
@@ -237,18 +241,21 @@ class SongAPIViewSET(ModelViewSet):
 class ArtistMobileAPIViewSET(ModelViewSet):
     queryset = Artist.objects.all()
     serializer_class = ArtistMobileSerializer
-    #permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated,)
+    authentication_classes = (TokenAuthentication,)
 
 class AlbumMobileAPIViewSET(ModelViewSet):
     queryset = Album.objects.all()
     serializer_class = AlbumMobileSerializer
-    #permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated,)
+    authentication_classes = (TokenAuthentication,)
 
 
 class SongMobileAPIViewSET(ModelViewSet):
     queryset = Song.objects.all()
     serializer_class = SongMobileSerializer
-    #permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated,)
+    authentication_classes = (TokenAuthentication,)
 
 
 

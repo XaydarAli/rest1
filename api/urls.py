@@ -7,6 +7,7 @@ from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from django.urls import path, re_path,include
+from rest_framework.authtoken.views import obtain_auth_token
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -42,7 +43,9 @@ urlpatterns = [
     # path('albums/<int:id>/', AlbumDetailAPIView.as_view(), name="album-detail"),
     # path('songs/', SongAPIView.as_view(), name="songs"),
     # path('songs/<int:id>/', SongDetailAPIView.as_view(), name="song-detail"),
-    path('api-auth/', include('rest_framework.urls')),
+
+    path('api-token-auth/', obtain_auth_token),
+
     path('',include(router.urls)),
 ]
 
